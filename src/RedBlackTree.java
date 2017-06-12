@@ -5,7 +5,7 @@ import com.sun.org.apache.regexp.internal.RE;
  */
 public class RedBlackTree extends SearchTree {
 
-    //RedBlackNode root;
+    private RBNode root;
 
 //    public RedBlackTree() {
 //        super(SearchTreeType.RB);

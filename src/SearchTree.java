@@ -3,7 +3,7 @@
  */
 public abstract class SearchTree {
 
-    Node root;
+    private Node root;
     SearchTreeType treeType;
 
 //    SearchTree(SearchTreeType treeType) {
@@ -56,7 +56,19 @@ public abstract class SearchTree {
 
     public Node findWord(String word) {
 
-        return null;
+        Node node = root;
+
+        while(node != null) {
+            if(node.word.equalsIgnoreCase(word))
+                return node;
+
+            if(node.word.compareToIgnoreCase(word) < 0)
+                node = node.rightChild;
+            else
+                node = node.leftChild;
+        }
+
+        return node;
 
     }
 
@@ -150,24 +162,24 @@ public abstract class SearchTree {
 
     }
 
-    protected void rotateLeft(Node node) {
-
-    }
-
-    protected void rotateRight(Node node) {
-
-    }
-
-    protected Node getGrandParent(Node node) {
-        return null;
-    }
-
-    protected Node getUncle(Node node) {
-        return null;
-    }
-
-    protected Node getSibling(Node node) {
-        return null;
-    }
+//    protected void rotateLeft(Node node) {
+//
+//    }
+//
+//    protected void rotateRight(Node node) {
+//
+//    }
+//
+//    protected Node getGrandParent(Node node) {
+//        return null;
+//    }
+//
+//    protected Node getUncle(Node node) {
+//        return null;
+//    }
+//
+//    protected Node getSibling(Node node) {
+//        return null;
+//    }
 
 }
