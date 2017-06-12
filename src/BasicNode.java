@@ -5,12 +5,12 @@ import javafx.fxml.FXMLLoader;
  */
 public abstract class BasicNode <T extends BasicNode<T>>{
 
-    public String word;
-    public String[] definitions;
+    private String word;
+    private String[] definitions;
 
-    public T leftChild;
-    public T rightChild;
-    public T parent;
+    private T leftChild;
+    private T rightChild;
+    private T parent;
 
     BasicNode(String word, String definition) {
         this.word = word;
@@ -89,58 +89,96 @@ public abstract class BasicNode <T extends BasicNode<T>>{
 
     protected abstract void printNodeDetails(String space);
 
-    public void rotateLeft(T root) {
+    public void rotateLeft() {
 
-        if(this.parent == null) {
-            root = this.rightChild;
-        }
-        else if(this == this.parent.leftChild) {
-            this.parent.leftChild = this.rightChild;
-        }
-        else {
-            this.parent.rightChild = this.rightChild;
-        }
+        this.getRightChild().setParent(this.getParent());
 
-        this.rightChild.parent = this.parent;
-        this.parent = this.rightChild;
-        this.rightChild = this.parent.leftChild;
+        if(this.getParent() != null) {
 
-        if(this.rightChild != null) {
-            this.rightChild.parent = (T) this;
+            if(this.getParent().getLeftChild() == this) {
+                this.getParent().setLeftChild(this.getRightChild());
+            } else {
+                this.getParent().setRightChild(this.getRightChild());
+            }
+
         }
 
-        this.parent.leftChild = (T) this;
+        this.setParent(this.getRightChild());
+        this.setRightChild(this.getParent().getLeftChild());
+
+        if(this.getRightChild() != null) {
+            this.getRightChild().setParent((T) this);
+        }
+
+        this.getParent().setLeftChild((T) this);
+
+
+//        if(this.parent == null) {
+//            this = this.rightChild;
+//        }
+//        else if(this == this.parent.leftChild) {
+//            this.parent.leftChild = this.rightChild;
+//        }
+//        else {
+//            this.parent.rightChild = this.rightChild;
+//        }
+//
+//        this.rightChild.parent = this.parent;
+//        this.parent = this.rightChild;
+//        this.rightChild = this.parent.leftChild;
+//
+//        if(this.rightChild != null) {
+//            this.rightChild.parent = (T) this;
+//        }
+//
+//        this.parent.leftChild = (T) this;
 
     }
 
-    public void rotateRight(T root) {
+    public void rotateRight() {
 
-        if(this.parent == null) {
-            root = this.leftChild;
-        }
-        else if(this == this.parent.leftChild) {
-            this.parent.leftChild = this.leftChild;
-        }
-        else {
-            this.parent.rightChild = this.leftChild;
-        }
+        this.getLeftChild().setParent(this.getParent());
 
-        this.leftChild.parent = this.parent;
-        this.parent = this.leftChild;
-        this.leftChild = this.parent.rightChild;
+        if(this.getParent() != null) {
 
-        if(this.leftChild != null) {
-            this.leftChild.parent = (T) this;
+            if(this.getParent().getRightChild() == this) {
+                this.getParent().setRightChild(this.getLeftChild());
+            } else {
+                this.getParent().setLeftChild(this.getLeftChild());
+            }
+
         }
 
-        this.parent.rightChild = (T) this;
+        this.setParent(this.getLeftChild());
+        this.setLeftChild(this.getParent().getRightChild());
+
+        if(this.getLeftChild() != null) {
+            this.getLeftChild().setParent((T) this);
+        }
+
+        this.getParent().setRightChild((T) this);
 
     }
 
+    // Word Getter
+    public String getWord() {
+        return this.word;
+    }
+
+    public void setWord(String word) {
+        this.word = word;
+    }
+
+    // Definitions Getter
+    public String[] getDefinitions() {
+        return this.definitions;
+    }
+
+    // Grandparent Getter
     public T getGrandparent() {
 
-        if(this.parent != null && this.parent.parent != null) {
-            return this.parent.parent;
+        if(this.getParent() != null && this.getParent().getParent() != null) {
+            return this.getParent().getParent();
         }
         else {
             return null;
@@ -148,6 +186,7 @@ public abstract class BasicNode <T extends BasicNode<T>>{
 
     }
 
+    // Uncle Getter
     public T getUncle() {
 
         T grandparent = getGrandparent();
@@ -156,50 +195,57 @@ public abstract class BasicNode <T extends BasicNode<T>>{
             return null;
         }
 
-        if(this.parent == grandparent.rightChild) {
-            return grandparent.leftChild;
+        if(this.getParent() == grandparent.getRightChild()) {
+            return grandparent.getLeftChild();
         }
         else {
-            return grandparent.rightChild;
+            return grandparent.getRightChild();
         }
 
     }
 
+    // Sibling Getter
     public T getSibling() {
 
-        if(this == null || this.parent == null){
+        if(this == null || this.getParent() == null){
             return null;
         }
 
-        if(this == this.parent.leftChild) {
-            return this.parent.rightChild;
+        if(this == this.getParent().getLeftChild()) {
+            return this.getParent().getRightChild();
         }
         else {
-            return this.parent.leftChild;
+            return this.getParent().getLeftChild();
         }
 
     }
 
+    // Parent Getter
     public T getParent() {
         return this.parent;
     }
 
+    // Leftchild Getter
     public T getLeftChild() {
         return this.leftChild;
     }
 
+    // Rightchild Getter
     public T getRightChild() {
         return this.rightChild;
     }
 
+    // Parent Setter
     public void setParent(T newParent) {
         this.parent = newParent;
     }
 
+    // Leftchild Setter
     public void setLeftChild(T newLeftChild) {
         this.leftChild = newLeftChild;
     }
 
+    // Rightchild Setter
     public void setRightChild(T newRightChild) {
         this.rightChild = newRightChild;
     }

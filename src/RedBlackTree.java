@@ -7,14 +7,9 @@ public class RedBlackTree extends SearchTree {
 
     private RBNode root;
 
-//    public RedBlackTree() {
-//        super(SearchTreeType.RB);
-//        root = RedBlackNode;
-//    }
-
     public void insertWord(String[] command) {
 
-        Node newNode =  findWord(command[1]);
+        RBNode newNode = (RBNode) findWord(root, command[1]);
 
         if (root == null) {
             root = new RBNode(command[1],command[2]);
@@ -22,9 +17,9 @@ public class RedBlackTree extends SearchTree {
 
         if(newNode == null) {
 
-            newNode = new Node(command[1], command[2].trim());
-            insertNode(newNode);
-            newNode.setColor(this, NodeColor.RED);
+            newNode = new RBNode(command[1], command[2].trim());
+            insertNode(root, newNode);
+            newNode.setColor(NodeColor.RED);
 
             insert1(newNode);
 
@@ -40,7 +35,7 @@ public class RedBlackTree extends SearchTree {
 
     public void deleteWord(String[] command) {
 
-        Node node = findWord(command[1]);
+        RBNode node = (RBNode) findWord(root, command[1]);
 
         if(node == null) {
             return;
@@ -51,12 +46,12 @@ public class RedBlackTree extends SearchTree {
 
     }
 
-    private void insert1(Node node) {
+    private void insert1(RBNode node) {
 
-        if (root == null || node == root || node.parent == null) {
+        if (root == null || node == root || node.getParent() == null) {
 
             root = node;
-            root.setColor(this, NodeColor.BLACK);
+            root.setColor(NodeColor.BLACK);
             return;
 
         }
@@ -66,36 +61,36 @@ public class RedBlackTree extends SearchTree {
 
     }
 
-    private void insert2(Node node) {
+    private void insert2(RBNode node) {
 
 
 
     }
 
-    private void delete1(Node node) {
+    private void delete1(RBNode node) {
 
         if(root == node) {
 
-            if(node.leftChild != null) {
+            if(node.getLeftChild() != null) {
 
-                Node temp = node.leftChild;
+                RBNode temp = node.getLeftChild();
 
-                while(temp.rightChild != null) {
-                    temp = temp.rightChild;
+                while(temp.getRightChild() != null) {
+                    temp = temp.getRightChild();
                 }
 
-                node.word = temp.word;
+                node.setWord(temp.getWord());
 
-                if(node.leftChild.getColor(this) == NodeColor.BLACK && node.leftChild == temp) {
+                if(node.getLeftChild().getColor() == NodeColor.BLACK && node.getLeftChild() == temp) {
 
-                    rotateLeft(node);
-                    node.parent.setColor(this, NodeColor.BLACK);
+                    node.rotateLeft();
+                    node.getParent().setColor(NodeColor.BLACK);
 
-                    if(node.parent.rightChild != null) {
-                        node.parent.rightChild.setColor(this, NodeColor.BLACK);
+                    if(node.getParent().getRightChild() != null) {
+                        node.getParent().getRightChild().setColor(NodeColor.BLACK);
                     }
                     else {
-                        node.setColor(this, NodeColor.RED);
+                        node.setColor(NodeColor.RED);
                     }
 
                 }
@@ -103,25 +98,25 @@ public class RedBlackTree extends SearchTree {
                 deleteNode(temp);
 
             }
-            else if (node.rightChild != null) {
+            else if (node.getRightChild() != null) {
 
-                node.word = node.rightChild.word;
+                node.setWord(node.getRightChild().getWord());
 
-                if(node.rightChild.getColor(this) == NodeColor.BLACK) {
+                if(node.getRightChild().getColor() == NodeColor.BLACK) {
 
-                    rotateRight(node);
-                    node.parent.setColor(this, NodeColor.BLACK);
+                    node.rotateRight();
+                    node.getParent().setColor(NodeColor.BLACK);
 
-                    if(node.parent.leftChild != null) {
-                        node.parent.leftChild.setColor(this, NodeColor.BLACK);
+                    if(node.getParent().getLeftChild() != null) {
+                        node.getParent().getLeftChild().setColor(NodeColor.BLACK);
                     }
                     else {
-                        node.setColor(this, NodeColor.RED);
+                        node.setColor(NodeColor.RED);
                     }
 
                 }
 
-                deleteNode(node.rightChild);
+                deleteNode(node.getRightChild());
             }
             else {
                 deleteNode(node);
@@ -134,27 +129,27 @@ public class RedBlackTree extends SearchTree {
 
     }
 
-    private void delete2(Node node) {
+    private void delete2(RBNode node) {
 
-        if(node.leftChild == null || node.rightChild == null) {
+        if(node.getLeftChild() == null || node.getRightChild() == null) {
 
             // If node is red both children are null and can be deleted
-            if(node.getColor(this) == NodeColor.RED) {
+            if(node.getColor() == NodeColor.RED) {
                 deleteNode(node);
             }
             else {
 
                 // node is black and has one red child
-                if(node.leftChild != null) {
+                if(node.getLeftChild() != null) {
 
-                    node.word = node.leftChild.word;
-                    deleteNode(node.leftChild);
+                    node.setWord(node.getLeftChild().getWord());
+                    deleteNode(node.getLeftChild());
 
                 }
-                else if(node.rightChild != null) {
+                else if(node.getRightChild() != null) {
 
-                    node.word = node.rightChild.word;
-                    deleteNode(node.rightChild);
+                    node.setWord(node.getRightChild().getWord());
+                    deleteNode(node.getRightChild());
 
                 }
                 // if black node has no children
@@ -171,18 +166,18 @@ public class RedBlackTree extends SearchTree {
 
     }
 
-    private void delete3(Node node) {
+    private void delete3(RBNode node) {
 
         // if red must have two blacks
-        if(node.getColor(this) == NodeColor.RED) {
+        if(node.getColor() == NodeColor.RED) {
 
-            Node temp = node.leftChild;
+            RBNode temp = node.getLeftChild();
 
-            while(temp.rightChild != null) {
-                temp = temp.rightChild;
+            while(temp.getRightChild() != null) {
+                temp = temp.getRightChild();
             }
 
-            node.word = temp.word;
+            node.setWord(temp.getWord());
             delete1(temp);
 
         }
@@ -192,45 +187,45 @@ public class RedBlackTree extends SearchTree {
 
     }
 
-    private void delete4(Node node) {
+    private void delete4(RBNode node) {
 
-        Node sibling = getSibling(node);
+        RBNode sibling = node.getSibling();
 
         // if sibling is black and at least one of its children is red
-        if(sibling.getColor(this) == NodeColor.BLACK && ((sibling.leftChild != null && sibling.leftChild.getColor(this) == NodeColor.RED) || (sibling.rightChild != null && sibling.rightChild.getColor(this) == NodeColor.RED)) ) {
+        if(sibling.getColor() == NodeColor.BLACK && ((sibling.getLeftChild() != null && sibling.getLeftChild().getColor() == NodeColor.RED) || (sibling.getRightChild() != null && sibling.getRightChild().getColor() == NodeColor.RED)) ) {
 
             // Sibling is left child and is black with a red left child
-            if(node.parent.leftChild == sibling) {
+            if(node.getParent().getLeftChild() == sibling) {
 
-                if(sibling.leftChild == null) {
+                if(sibling.getLeftChild() == null) {
 
-                    sibling.setColor(this, NodeColor.RED);
-                    sibling.rightChild.setColor(this, NodeColor.BLACK);
-                    rotateLeft(sibling);
+                    sibling.setColor(NodeColor.RED);
+                    sibling.getRightChild().setColor(NodeColor.BLACK);
+                    sibling.rotateLeft();
 
                 }
 
-                rotateRight(node.parent);
-                node.parent.parent.setColor(this, NodeColor.RED);
-                node.parent.parent.leftChild.setColor(this, NodeColor.BLACK);
-                node.parent.parent.rightChild.setColor(this, NodeColor.BLACK);
+                node.getParent().rotateRight();
+                node.getParent().getParent().setColor(NodeColor.RED);
+                node.getParent().getParent().getLeftChild().setColor(NodeColor.BLACK);
+                node.getParent().getParent().getRightChild().setColor(NodeColor.BLACK);
                 deleteNode(node);
 
             }
-            else if (node.parent.rightChild == sibling) {
+            else if (node.getParent().getRightChild() == sibling) {
 
-                if(sibling.rightChild == null) {
+                if(sibling.getRightChild() == null) {
 
-                    sibling.setColor(this, NodeColor.RED);
-                    sibling.leftChild.setColor(this, NodeColor.BLACK);
-                    rotateRight(sibling);
+                    sibling.setColor(NodeColor.RED);
+                    sibling.getLeftChild().setColor(NodeColor.BLACK);
+                    sibling.rotateRight();
 
                 }
 
-                rotateLeft(node.parent);
-                node.parent.parent.setColor(this, NodeColor.RED);
-                node.parent.parent.leftChild.setColor(this, NodeColor.BLACK);
-                node.parent.parent.rightChild.setColor(this, NodeColor.BLACK);
+                node.getParent().rotateLeft();
+                node.getParent().getParent().setColor(NodeColor.RED);
+                node.getParent().getParent().getLeftChild().setColor(NodeColor.BLACK);
+                node.getParent().getParent().getRightChild().setColor(NodeColor.BLACK);
                 deleteNode(node);
 
             }
@@ -242,21 +237,21 @@ public class RedBlackTree extends SearchTree {
 
     }
 
-    private void delete5(Node node) {
+    private void delete5(RBNode node) {
 
-        Node sibling = getSibling(node);
+        RBNode sibling = node.getSibling();
 
-        if(sibling.getColor(this) == NodeColor.BLACK) {
+        if(sibling.getColor() == NodeColor.BLACK) {
 
             // double red is prevented from delete2
-            sibling.setColor(this, NodeColor.RED);
+            sibling.setColor(NodeColor.RED);
             deleteNode(node);
 
-            if(sibling.parent.getColor(this) == NodeColor.RED) {
-                sibling.parent.setColor(this, NodeColor.BLACK);
+            if(sibling.getParent().getColor() == NodeColor.RED) {
+                sibling.getParent().setColor(NodeColor.BLACK);
             }
             else {
-                delete1(sibling.parent);
+                delete1(sibling.getParent());
             }
 
         }
@@ -266,24 +261,24 @@ public class RedBlackTree extends SearchTree {
 
     }
 
-    private void delete6(Node node) {
+    private void delete6(RBNode node) {
 
-        Node sibling = getSibling(node);
+        RBNode sibling = node.getSibling();
         // sibling must be red and have two black children
 
-        sibling.setColor(this, NodeColor.BLACK);
+        sibling.setColor(NodeColor.BLACK);
         deleteNode(node);
 
-        if(sibling.parent.rightChild == sibling) {
+        if(sibling.getParent().getRightChild() == sibling) {
 
-            sibling.leftChild.setColor(this, NodeColor.RED);
-            rotateLeft(sibling.parent);
+            sibling.getLeftChild().setColor(NodeColor.RED);
+            sibling.getParent().rotateLeft();
 
         }
         else {
 
-            sibling.rightChild.setColor(this, NodeColor.RED);
-            rotateRight(sibling.parent);
+            sibling.getRightChild().setColor(NodeColor.RED);
+            sibling.getParent().rotateRight();
 
         }
 

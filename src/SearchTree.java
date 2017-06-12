@@ -1,9 +1,8 @@
 /**
  * Created by Taylor-PC on 6/7/2017.
  */
-public abstract class SearchTree {
+public abstract class SearchTree <T extends BasicNode<T>> {
 
-    private Node root;
     SearchTreeType treeType;
 
 //    SearchTree(SearchTreeType treeType) {
@@ -18,64 +17,36 @@ public abstract class SearchTree {
 
     public abstract void deleteWord(String[] command);
 
-    public void printTree(Node node, int level) {
-
-        if(root == null) {
-            System.out.println("Tree is empty.");
-            return;
-        } if(node == null)
-            return;
-
-        String space = "";
-
-        for(int x = 0; x < level; x++)
-            space += "    ";
-
-        if(treeType.equals("RB")) {
-            String color;
-            if(node.color)
-                color = "Red";
-            else
-                color = "Black";
-            System.out.println(space + node.word + " (" + color + ')');
-        } else if(treeType.equals("AVL"))
-            System.out.println(space + node.word + " (" + node.level + ')');
-        else
-            System.out.println(space + node.word);
-
-        printTree(node.leftChild, level+1);
-        printTree(node.rightChild, level+1);
-
-    }
-
     public void list(String[] command) {
 
 
 
     }
 
-    public Node findWord(String word) {
-
-        Node node = root;
+    public T findWord(T node, String word) {
 
         while(node != null) {
-            if(node.word.equalsIgnoreCase(word))
-                return node;
 
-            if(node.word.compareToIgnoreCase(word) < 0)
+            if(node.word.equalsIgnoreCase(word)) {
+                return node;
+            }
+
+            if(node.word.compareToIgnoreCase(word) < 0) {
                 node = node.rightChild;
-            else
+            }
+            else {
                 node = node.leftChild;
+            }
         }
 
         return node;
 
     }
 
-    protected Node insertNode(Node node) {
+    protected T insertNode(T root, T node) {
 
-        Node nodeParent = null;
-        Node searchNode = root;
+        T nodeParent = null;
+        T searchNode = root;
 
         while(searchNode != null) {
 
@@ -105,13 +76,13 @@ public abstract class SearchTree {
 
     }
 
-    protected void deleteNode(Node node) {
+    protected void deleteNode(T node) {
 
-        Node temp;
+        T temp;
 
-        if(node.leftChild != null) {
+        if(node.getLeftChild() != null) {
 
-            temp = node.leftChild;
+            temp = node.getLeftChild();
 
             while(temp.rightChild != null) {
                 temp = temp.rightChild;
