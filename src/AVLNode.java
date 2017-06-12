@@ -13,44 +13,18 @@ public class AVLNode extends BasicNode {
         super(word, definition);
     }
 
-    public void deleteWord(String word) {
+    public void printNodeDetails(String space) {
+
+        System.out.println(space + this.word + " (" + this.getLevel() + ')');
 
     }
 
-    public void setLevel(SearchTree tree, int level) {
-
-        try {
-
-            if (tree instanceof AVLTree) {
-                this.level = level;
-            } else {
-                throw new IncorrectTreeNodePair(tree);
-            }
-
-        }
-        catch(IncorrectTreeNodePair e) {
-            e.printStackTrace();
-        }
-
+    public void setLevel(int level) {
+        this.level = level;
     }
 
-    public int getLevel(SearchTree tree) {
-
-        try {
-
-            if (tree instanceof AVLTree) {
-                return level;
-            } else {
-                throw new IncorrectTreeNodePair(tree);
-            }
-
-        }
-        catch(IncorrectTreeNodePair e) {
-            e.printStackTrace();
-        }
-
-        return 0;
-
+    public int getLevel() {
+        return level;
     }
 
 }

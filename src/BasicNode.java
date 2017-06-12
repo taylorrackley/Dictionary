@@ -12,13 +12,6 @@ public abstract class BasicNode <T extends BasicNode<T>>{
     public T rightChild;
     public T parent;
 
-//    private NodeColor color;
-//    private int level;
-
-//    BasicNode leftChild;
-//    BasicNode rightChild;
-//    BasicNode parent;
-
     BasicNode(String word, String definition) {
         this.word = word;
         this.definitions = new String[] {definition};
@@ -71,34 +64,99 @@ public abstract class BasicNode <T extends BasicNode<T>>{
 
     }
 
-    public abstract void deleteWord(String word);
+    public void printTree(T node) {
+        printTree(node, 0);
+    }
 
-    protected void rotateLeft(Node node) {
+    public void printTree(T node, int level) {
+
+        if(node == null) {
+            return;
+        }
+
+        String space = "";
+
+        for(int x = 0; x < level; x++) {
+            space += "    ";
+        }
+
+        printNodeDetails(space);
+
+        printTree(node.getLeftChild(), level+1);
+        printTree(node.getRightChild(), level+1);
 
     }
 
-    protected void rotateRight(Node node) {
+    protected abstract void printNodeDetails(String space);
+
+    public void rotateLeft(T root) {
+
+        if(this.parent == null) {
+            root = this.rightChild;
+        }
+        else if(this == this.parent.leftChild) {
+            this.parent.leftChild = this.rightChild;
+        }
+        else {
+            this.parent.rightChild = this.rightChild;
+        }
+
+        this.rightChild.parent = this.parent;
+        this.parent = this.rightChild;
+        this.rightChild = this.parent.leftChild;
+
+        if(this.rightChild != null) {
+            this.rightChild.parent = (T) this;
+        }
+
+        this.parent.leftChild = (T) this;
 
     }
 
-    protected T getGrandparent(T node) {
+    public void rotateRight(T root) {
 
-        if(node.parent != null && node.parent.parent != null)
-            return node.parent.parent;
-        else
+        if(this.parent == null) {
+            root = this.leftChild;
+        }
+        else if(this == this.parent.leftChild) {
+            this.parent.leftChild = this.leftChild;
+        }
+        else {
+            this.parent.rightChild = this.leftChild;
+        }
+
+        this.leftChild.parent = this.parent;
+        this.parent = this.leftChild;
+        this.leftChild = this.parent.rightChild;
+
+        if(this.leftChild != null) {
+            this.leftChild.parent = (T) this;
+        }
+
+        this.parent.rightChild = (T) this;
+
+    }
+
+    public T getGrandparent() {
+
+        if(this.parent != null && this.parent.parent != null) {
+            return this.parent.parent;
+        }
+        else {
             return null;
+        }
 
     }
 
-    protected T getUncle(T node) {
+    public T getUncle() {
 
-        T grandparent = getGrandparent(node);
+        T grandparent = getGrandparent();
 
         if(grandparent == null) {
             return null;
         }
 
-        if(node.parent == grandparent.rightChild) {
+        if(this.parent == grandparent.rightChild) {
             return grandparent.leftChild;
         }
         else {
@@ -107,19 +165,43 @@ public abstract class BasicNode <T extends BasicNode<T>>{
 
     }
 
-    protected T getSibling(T node) {
+    public T getSibling() {
 
-        if(node == null || node.parent == null){
+        if(this == null || this.parent == null){
             return null;
         }
 
-        if(node == node.parent.leftChild) {
-            return node.parent.rightChild;
+        if(this == this.parent.leftChild) {
+            return this.parent.rightChild;
         }
         else {
-            return node.parent.leftChild;
+            return this.parent.leftChild;
         }
 
+    }
+
+    public T getParent() {
+        return this.parent;
+    }
+
+    public T getLeftChild() {
+        return this.leftChild;
+    }
+
+    public T getRightChild() {
+        return this.rightChild;
+    }
+
+    public void setParent(T newParent) {
+        this.parent = newParent;
+    }
+
+    public void setLeftChild(T newLeftChild) {
+        this.leftChild = newLeftChild;
+    }
+
+    public void setRightChild(T newRightChild) {
+        this.rightChild = newRightChild;
     }
 
 }

@@ -1,7 +1,7 @@
 /**
  * Created by Taylor-PC on 6/10/2017.
  */
-public class RBNode extends BasicNode {
+public class RBNode extends BasicNode <RBNode> {
 
     private NodeColor color;
 
@@ -13,40 +13,27 @@ public class RBNode extends BasicNode {
         super(word, definition);
     }
 
-    public void setColor(SearchTree tree, NodeColor color) {
+    public void printNodeDetails(String space) {
 
-        try {
+        String color;
 
-            if (tree instanceof RedBlackTree) {
-                this.color = color;
-            } else {
-                throw new IncorrectTreeNodePair(tree);
-            }
-
+        if(this.getColor() == NodeColor.RED) {
+            color = "Red";
         }
-        catch(IncorrectTreeNodePair e) {
-            e.printStackTrace();
+        else {
+            color = "Black";
         }
+
+        System.out.println(space + this.word + " (" + color + ')');
 
     }
 
-    public NodeColor getColor(SearchTree tree) {
+    public void setColor(NodeColor color) {
+        this.color = color;
+    }
 
-        try {
-
-            if (tree instanceof RedBlackTree) {
-                return color;
-            } else {
-                throw new IncorrectTreeNodePair(tree);
-            }
-
-        }
-        catch(IncorrectTreeNodePair e) {
-            e.printStackTrace();
-        }
-
-        return null;
-
+    public NodeColor getColor() {
+        return color;
     }
 
 }

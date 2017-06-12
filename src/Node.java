@@ -11,10 +11,8 @@ public class Node extends BasicNode {
         super(word, definition);
     }
 
-    public void deleteWord(String word) {
-
-
-
+    public void printNodeDetails(String space) {
+        System.out.println(space + this.word);
     }
 
 }

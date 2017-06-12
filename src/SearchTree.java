@@ -162,24 +162,4 @@ public abstract class SearchTree {
 
     }
 
-//    protected void rotateLeft(Node node) {
-//
-//    }
-//
-//    protected void rotateRight(Node node) {
-//
-//    }
-//
-//    protected Node getGrandParent(Node node) {
-//        return null;
-//    }
-//
-//    protected Node getUncle(Node node) {
-//        return null;
-//    }
-//
-//    protected Node getSibling(Node node) {
-//        return null;
-//    }
-
 }

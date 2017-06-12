@@ -17,7 +17,7 @@ public class RedBlackTree extends SearchTree {
         Node newNode =  findWord(command[1]);
 
         if (root == null) {
-            root = new Node(command[1],command[2]);
+            root = new RBNode(command[1],command[2]);
         }
 
         if(newNode == null) {
