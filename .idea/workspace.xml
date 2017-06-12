@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e4642779-11d7-473c-a00b-5b5f0ee354e3" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/BasicNode.java" afterPath="$PROJECT_DIR$/src/BasicNode.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/RedBlackTree.java" afterPath="$PROJECT_DIR$/src/RedBlackTree.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/SearchTree.java" afterPath="$PROJECT_DIR$/src/SearchTree.java" />
     </list>
@@ -33,13 +32,10 @@
       <file leaf-file-name="SearchTree.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/SearchTree.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1326">
-              <caret line="84" column="38" lean-forward="false" selection-start-line="84" selection-start-column="38" selection-end-line="84" selection-end-column="38" />
+            <state relative-caret-position="42">
+              <caret line="92" column="58" lean-forward="true" selection-start-line="92" selection-start-column="58" selection-end-line="92" selection-end-column="58" />
               <folding>
                 <element signature="docComment;class#SearchTree#0" expanded="false" />
-                <element signature="method#list#0;class#SearchTree#0" expanded="false" />
-                <element signature="method#printList#0;class#SearchTree#0" expanded="false" />
-                <element signature="method#printList#1;class#SearchTree#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -171,8 +167,8 @@
         <option value="$PROJECT_DIR$/src/RBNode.java" />
         <option value="$PROJECT_DIR$/src/AVLNode.java" />
         <option value="$PROJECT_DIR$/src/Node.java" />
-        <option value="$PROJECT_DIR$/src/SearchTree.java" />
         <option value="$PROJECT_DIR$/src/BasicNode.java" />
+        <option value="$PROJECT_DIR$/src/SearchTree.java" />
         <option value="$PROJECT_DIR$/src/RedBlackTree.java" />
       </list>
     </option>
@@ -536,14 +532,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/SearchTree.java</url>
-          <line>80</line>
-          <properties />
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-      </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
@@ -572,9 +560,6 @@
           <caret line="26" column="19" lean-forward="false" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
           <folding>
             <element signature="docComment;class#SearchTree#0" expanded="false" />
-            <element signature="method#list#0;class#SearchTree#0" expanded="false" />
-            <element signature="method#printList#0;class#SearchTree#0" expanded="false" />
-            <element signature="method#printList#1;class#SearchTree#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -676,9 +661,6 @@
           <caret line="5" column="11" lean-forward="true" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
           <folding>
             <element signature="docComment;class#SearchTree#0" expanded="false" />
-            <element signature="method#list#0;class#SearchTree#0" expanded="false" />
-            <element signature="method#printList#0;class#SearchTree#0" expanded="false" />
-            <element signature="method#printList#1;class#SearchTree#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -851,13 +833,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/SearchTree.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1326">
-          <caret line="84" column="38" lean-forward="false" selection-start-line="84" selection-start-column="38" selection-end-line="84" selection-end-column="38" />
+        <state relative-caret-position="42">
+          <caret line="92" column="58" lean-forward="true" selection-start-line="92" selection-start-column="58" selection-end-line="92" selection-end-column="58" />
           <folding>
             <element signature="docComment;class#SearchTree#0" expanded="false" />
-            <element signature="method#list#0;class#SearchTree#0" expanded="false" />
-            <element signature="method#printList#0;class#SearchTree#0" expanded="false" />
-            <element signature="method#printList#1;class#SearchTree#0" expanded="false" />
           </folding>
         </state>
       </provider>

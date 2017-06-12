@@ -95,7 +95,7 @@ public class RedBlackTree extends SearchTree {
 
                 }
 
-                deleteNode(temp);
+                deleteNode(root, temp);
 
             }
             else if (node.getRightChild() != null) {
@@ -116,10 +116,10 @@ public class RedBlackTree extends SearchTree {
 
                 }
 
-                deleteNode(node.getRightChild());
+                deleteNode(root, node.getRightChild());
             }
             else {
-                deleteNode(node);
+                deleteNode(root, node);
             }
 
         }
@@ -135,7 +135,7 @@ public class RedBlackTree extends SearchTree {
 
             // If node is red both children are null and can be deleted
             if(node.getColor() == NodeColor.RED) {
-                deleteNode(node);
+                deleteNode(root, node);
             }
             else {
 
@@ -143,13 +143,13 @@ public class RedBlackTree extends SearchTree {
                 if(node.getLeftChild() != null) {
 
                     node.setWord(node.getLeftChild().getWord());
-                    deleteNode(node.getLeftChild());
+                    deleteNode(root, node.getLeftChild());
 
                 }
                 else if(node.getRightChild() != null) {
 
                     node.setWord(node.getRightChild().getWord());
-                    deleteNode(node.getRightChild());
+                    deleteNode(root, node.getRightChild());
 
                 }
                 // if black node has no children
@@ -209,7 +209,7 @@ public class RedBlackTree extends SearchTree {
                 node.getParent().getParent().setColor(NodeColor.RED);
                 node.getParent().getParent().getLeftChild().setColor(NodeColor.BLACK);
                 node.getParent().getParent().getRightChild().setColor(NodeColor.BLACK);
-                deleteNode(node);
+                deleteNode(root, node);
 
             }
             else if (node.getParent().getRightChild() == sibling) {
@@ -226,7 +226,7 @@ public class RedBlackTree extends SearchTree {
                 node.getParent().getParent().setColor(NodeColor.RED);
                 node.getParent().getParent().getLeftChild().setColor(NodeColor.BLACK);
                 node.getParent().getParent().getRightChild().setColor(NodeColor.BLACK);
-                deleteNode(node);
+                deleteNode(root, node);
 
             }
 
@@ -245,7 +245,7 @@ public class RedBlackTree extends SearchTree {
 
             // double red is prevented from delete2
             sibling.setColor(NodeColor.RED);
-            deleteNode(node);
+            deleteNode(root, node);
 
             if(sibling.getParent().getColor() == NodeColor.RED) {
                 sibling.getParent().setColor(NodeColor.BLACK);
@@ -267,7 +267,7 @@ public class RedBlackTree extends SearchTree {
         // sibling must be red and have two black children
 
         sibling.setColor(NodeColor.BLACK);
-        deleteNode(node);
+        deleteNode(root, node);
 
         if(sibling.getParent().getRightChild() == sibling) {
 

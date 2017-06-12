@@ -27,15 +27,15 @@ public abstract class SearchTree <T extends BasicNode<T>> {
 
         while(node != null) {
 
-            if(node.word.equalsIgnoreCase(word)) {
+            if(node.getWord().equalsIgnoreCase(word)) {
                 return node;
             }
 
-            if(node.word.compareToIgnoreCase(word) < 0) {
-                node = node.rightChild;
+            if(node.getWord().compareToIgnoreCase(word) < 0) {
+                node = node.getRightChild();
             }
             else {
-                node = node.leftChild;
+                node = node.getLeftChild();
             }
         }
 
@@ -51,32 +51,32 @@ public abstract class SearchTree <T extends BasicNode<T>> {
         while(searchNode != null) {
 
             nodeParent = searchNode;
-            if(node.word.compareToIgnoreCase(searchNode.word) > 0) {
-                searchNode = searchNode.rightChild;
+            if(node.getWord().compareToIgnoreCase(searchNode.getWord()) > 0) {
+                searchNode = searchNode.getRightChild();
             }
             else {
-                searchNode = searchNode.leftChild;
+                searchNode = searchNode.getLeftChild();
             }
 
         }
 
-        node.parent = nodeParent;
+        node.setParent(nodeParent);
 
         if(nodeParent == null) {
             root = node;
         }
-        else if(node.word.compareToIgnoreCase(nodeParent.word) > 0) {
-            nodeParent.rightChild = node;
+        else if(node.getWord().compareToIgnoreCase(nodeParent.getWord()) > 0) {
+            nodeParent.setRightChild(node);
         }
         else {
-            nodeParent.leftChild = node;
+            nodeParent.setLeftChild(node);
         }
 
         return node;
 
     }
 
-    protected void deleteNode(T node) {
+    protected void deleteNode(T root, T node) {
 
         T temp;
 
@@ -84,29 +84,29 @@ public abstract class SearchTree <T extends BasicNode<T>> {
 
             temp = node.getLeftChild();
 
-            while(temp.rightChild != null) {
-                temp = temp.rightChild;
+            while(temp.getRightChild() != null) {
+                temp = temp.getRightChild();
             }
 
-            node.word = temp.word;
+            node.setWord(temp.getWord());
 
-            if(temp == temp.parent.rightChild) {
-                temp.parent.rightChild = temp.leftChild;
+            if(temp == temp.getParent().getRightChild()) {
+                temp.getParent().setRightChild(temp.getLeftChild());
             }
             else {
-                node.leftChild = temp.leftChild;
+                node.setLeftChild(temp.getLeftChild());
             }
-            if(temp.leftChild != null) {
-                temp.leftChild.parent = temp.parent;
+            if(temp.getLeftChild() != null) {
+                temp.getLeftChild().setParent(temp.getParent());
             }
 
             temp = null;
 
         }
-        else if(node.rightChild != null) {
+        else if(node.getRightChild() != null) {
 
-            node.word = node.rightChild.word;
-            node.rightChild = null;
+            node.setWord(node.getRightChild().getWord());
+            node.setRightChild(null);
 
         }
         else if (node == root) {
@@ -114,11 +114,11 @@ public abstract class SearchTree <T extends BasicNode<T>> {
         }
         else {
 
-            if(node == node.parent.rightChild) {
-                node.parent.rightChild = null;
+            if(node == node.getParent().getRightChild()) {
+                node.getParent().setRightChild(null);
             }
             else {
-                node.parent.leftChild = null;
+                node.getParent().setLeftChild(null);
             }
 
         }
