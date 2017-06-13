@@ -63,7 +63,66 @@ public class RedBlackTree extends SearchTree {
 
     private void insert2(RBNode node) {
 
+        if(node.getParent().getColor() == NodeColor.BLACK) {
+            return;
+        }
+        else {
+            insert3(node);
+        }
 
+    }
+
+    private void insert3(RBNode node) {
+
+        RBNode uncle = node.getUncle();
+
+        if (uncle != null && uncle.getColor() == NodeColor.RED) {
+
+            node.getParent().setColor(NodeColor.BLACK);
+            node.getParent().getParent().setColor(NodeColor.RED);
+            uncle.setColor(NodeColor.BLACK);
+            node.setColor(NodeColor.RED);
+            insert1(node.getParent().getParent());
+
+        } else {
+            insert4(node);
+        }
+
+    }
+
+    private void insert4(RBNode node) {
+
+        RBNode gparent = node.getGrandparent();
+
+        if((node == node.getParent().getRightChild()) && (node.getParent() == gparent.getLeftChild())) {
+
+            node.getParent().rotateLeft();
+            node = node.getLeftChild();
+
+        } else if((node == node.getParent().getLeftChild()) && (node.getParent() == gparent.getRightChild())){
+
+            node.getParent().rotateRight();
+            node = node.getRightChild();
+
+        }
+
+        insert5(node);
+
+    }
+
+    private void insert5(RBNode node) {
+
+        RBNode gparent = node.getGrandparent();
+
+        node.getParent().setColor(NodeColor.BLACK);
+        gparent.setColor(NodeColor.RED);
+
+        if(node == node.getParent().getLeftChild()) {
+            gparent.rotateRight();
+        }
+        else {
+            gparent.rotateLeft();
+        }
 
     }
 
